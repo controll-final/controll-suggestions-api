@@ -1,0 +1,45 @@
+package com.hiringcoders.controll.api.v1.controller;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.hiringcoders.controll.api.v1.model.ProductSummaryModel;
+import com.hiringcoders.controll.api.v1.model.assembler.ProductSummaryModelAssembler;
+import com.hiringcoders.controll.domain.model.Product;
+import com.hiringcoders.controll.domain.model.ProductCombination;
+import com.hiringcoders.controll.domain.repository.ProductCombinationRepository;
+import com.hiringcoders.controll.domain.service.ProductRegistrationService;
+
+@RestController
+@RequestMapping(path = "/v1/products/{productId}/suggestions", produces = MediaType.APPLICATION_JSON_VALUE)
+public class ProductSuggestionController {
+	
+	@Autowired
+	private ProductRegistrationService productRegistration;
+	
+	@Autowired
+	private ProductCombinationRepository productCombinationRepository;
+	
+	@Autowired
+	private ProductSummaryModelAssembler productSummaryModelAssembler;
+	
+	@GetMapping
+	public List<ProductSummaryModel> listSuggestionsFromProduct(@PathVariable Long productId) {
+		Product product = productRegistration.findProductById(productId);
+
+		List<Product> suggestions = productCombinationRepository
+				.findActiveByProductId(product.getId())
+				.stream().map(ProductCombination::getCombinedProduct)
+				.collect(Collectors.toList());
+
+		return productSummaryModelAssembler.toCollectionModel(suggestions);
+	}
+
+}
