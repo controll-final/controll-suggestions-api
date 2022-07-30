@@ -1,7 +1,5 @@
 package com.hiringcoders.controll.api.v1.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hiringcoders.controll.api.v1.model.ProductModel;
 import com.hiringcoders.controll.api.v1.model.assembler.ProductModelAssembler;
 import com.hiringcoders.controll.domain.filter.ProductFilter;
-import com.hiringcoders.controll.domain.model.Product;
 import com.hiringcoders.controll.domain.repository.ProductRepository;
 import com.hiringcoders.controll.domain.service.ProductRegistrationService;
 
@@ -35,19 +32,18 @@ public class ProductController {
 
 	@GetMapping
 	public Page<ProductModel> listProducts(ProductFilter filter, @PageableDefault(size = 10) Pageable pageable) {
-		Page<Product> productsPage = productRepository.findUsingFilter(filter, pageable);
+		var productsPage = productRepository.findUsingFilter(filter, pageable);
 
-		List<ProductModel> productsModelList = productModelAssembler.toCollectionModel(productsPage.getContent());
+		var productsModelList = productModelAssembler.toCollectionModel(productsPage.getContent());
 
-		Page<ProductModel> productsModelPage = new PageImpl<>(productsModelList, pageable,
-				productsPage.getTotalElements());
+		var productsModelPage = new PageImpl<>(productsModelList, pageable, productsPage.getTotalElements());
 
 		return productsModelPage;
 	}
 
 	@GetMapping(path = "/{id}")
 	public ProductModel findById(@PathVariable Long id) {
-		Product product = productRegistration.findProductById(id);
+		var product = productRegistration.findProductById(id);
 
 		return productModelAssembler.toModel(product);
 	}

@@ -1,7 +1,5 @@
 package com.hiringcoders.controll.api.v1.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,8 +20,6 @@ import com.google.common.collect.ImmutableMap;
 import com.hiringcoders.controll.api.v1.model.ProductCombinationModel;
 import com.hiringcoders.controll.api.v1.model.assembler.ProductCombinationModelAssembler;
 import com.hiringcoders.controll.core.data.PageableTranslator;
-import com.hiringcoders.controll.domain.model.Product;
-import com.hiringcoders.controll.domain.model.ProductCombination;
 import com.hiringcoders.controll.domain.repository.ProductCombinationRepository;
 import com.hiringcoders.controll.domain.service.ProductCombinationRegistrationService;
 import com.hiringcoders.controll.domain.service.ProductRegistrationService;
@@ -40,37 +36,37 @@ public class ProductCombinationController {
 
 	@Autowired
 	private ProductRegistrationService productRegistration;
-	
+
 	@Autowired
 	private ProductCombinationRegistrationService productCombinationRegistration;
 
 	@GetMapping
 	public Page<ProductCombinationModel> listCombinationsFromProduct(@PathVariable Long productId,
 			@PageableDefault(size = 5) Pageable pageable) {
-		Product product = productRegistration.findProductById(productId);
-		
+		var product = productRegistration.findProductById(productId);
+
 		pageable = translatePageable(pageable);
 
-		Page<ProductCombination> productCombinationsPage = productCombinationRepository.findByProductId(product.getId(),
-				pageable);
+		var productCombinationsPage = productCombinationRepository.findByProductId(product.getId(), pageable);
 
-		List<ProductCombinationModel> productsCombinationModelList = productCombinationModelAssembler
+		var productsCombinationModelList = productCombinationModelAssembler
 				.toCollectionModel(productCombinationsPage.getContent());
 
-		Page<ProductCombinationModel> productsModelPage = new PageImpl<>(productsCombinationModelList, pageable,
+		var productsModelPage = new PageImpl<>(productsCombinationModelList, pageable,
 				productCombinationsPage.getTotalElements());
 
 		return productsModelPage;
 	}
-	
+
 	@PutMapping("/{combinedProductId}/active")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public ResponseEntity<Void> activateCombination(@PathVariable Long productId, @PathVariable Long combinedProductId) {
+	public ResponseEntity<Void> activateCombination(@PathVariable Long productId,
+			@PathVariable Long combinedProductId) {
 		productCombinationRegistration.activateCombination(productId, combinedProductId);
-		
+
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@DeleteMapping("/{combinedProductId}/active")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> disableCombination(@PathVariable Long productId, @PathVariable Long combinedProductId) {
@@ -78,19 +74,13 @@ public class ProductCombinationController {
 
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	private Pageable translatePageable(Pageable apiPageable) {
-		var mapeamento = ImmutableMap.of(
-				"productId", "product.id",
-				"productName", "product.name",
-				"productQuantitySold", "product.quantitySold",
-				"combinedProductId", "combinedProduct.id",
-				"combinedProductName", "combinedProduct.name",
-				"combinedProductQuantitySold", "combinedProduct.quantitySold",
-				"combinationCount", "count",
-				"combinationActive", "active"
-			);
-		
+		var mapeamento = ImmutableMap.of("productId", "product.id", "productName", "product.name",
+				"productQuantitySold", "product.quantitySold", "combinedProductId", "combinedProduct.id",
+				"combinedProductName", "combinedProduct.name", "combinedProductQuantitySold",
+				"combinedProduct.quantitySold", "combinationCount", "count", "combinationActive", "active");
+
 		return PageableTranslator.translate(apiPageable, mapeamento);
 	}
 

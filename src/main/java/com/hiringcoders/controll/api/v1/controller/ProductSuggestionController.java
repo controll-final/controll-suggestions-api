@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hiringcoders.controll.api.v1.model.ProductSummaryModel;
 import com.hiringcoders.controll.api.v1.model.assembler.ProductSummaryModelAssembler;
-import com.hiringcoders.controll.domain.model.Product;
 import com.hiringcoders.controll.domain.model.ProductCombination;
 import com.hiringcoders.controll.domain.repository.ProductCombinationRepository;
 import com.hiringcoders.controll.domain.service.ProductRegistrationService;
@@ -32,9 +31,9 @@ public class ProductSuggestionController {
 	
 	@GetMapping
 	public List<ProductSummaryModel> listSuggestionsFromProduct(@PathVariable Long productId) {
-		Product product = productRegistration.findProductById(productId);
+		var product = productRegistration.findProductById(productId);
 
-		List<Product> suggestions = productCombinationRepository
+		var suggestions = productCombinationRepository
 				.findActiveByProductId(product.getId())
 				.stream().map(ProductCombination::getCombinedProduct)
 				.collect(Collectors.toList());
