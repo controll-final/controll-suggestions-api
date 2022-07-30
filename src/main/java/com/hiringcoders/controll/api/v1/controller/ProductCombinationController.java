@@ -76,10 +76,15 @@ public class ProductCombinationController {
 	}
 
 	private Pageable translatePageable(Pageable apiPageable) {
-		var mapeamento = ImmutableMap.of("productId", "product.id", "productName", "product.name",
-				"productQuantitySold", "product.quantitySold", "combinedProductId", "combinedProduct.id",
-				"combinedProductName", "combinedProduct.name", "combinedProductQuantitySold",
-				"combinedProduct.quantitySold", "combinationCount", "count", "combinationActive", "active");
+		var mapeamento = ImmutableMap.of(
+				"productId", "product.id", 
+				"productName", "product.name",
+				"productQuantitySold", "product.quantitySold", 
+				"combinedProductId", "combinedProduct.id",
+				"combinedProductName", "combinedProduct.name", 
+				"combinedProductQuantitySold", "combinedProduct.quantitySold", 
+				"combinationCount", "count", 
+				"combinationActive", "active");
 
 		return PageableTranslator.translate(apiPageable, mapeamento);
 	}
