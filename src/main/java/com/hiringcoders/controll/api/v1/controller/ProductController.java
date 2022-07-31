@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class ProductController {
 	@Autowired
 	private ProductRegistrationService productRegistration;
 
+	@PreAuthorize("hasAuthority('SCOPE_ADMIN')")
 	@GetMapping
 	public Page<ProductModel> listProducts(ProductFilter filter, @PageableDefault(size = 10) Pageable pageable) {
 		var productsPage = productRepository.findUsingFilter(filter, pageable);
@@ -41,9 +43,10 @@ public class ProductController {
 		return productsModelPage;
 	}
 
-	@GetMapping(path = "/{id}")
-	public ProductModel findById(@PathVariable Long id) {
-		var product = productRegistration.findProductById(id);
+	@PreAuthorize("hasAuthority('SCOPE_ADMIN')")
+	@GetMapping(path = "/{productId}")
+	public ProductModel findById(@PathVariable Long productId) {
+		var product = productRegistration.findProductById(productId);
 
 		return productModelAssembler.toModel(product);
 	}

@@ -8,6 +8,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +41,7 @@ public class ProductCombinationController {
 	@Autowired
 	private ProductCombinationRegistrationService productCombinationRegistration;
 
+	@PreAuthorize("hasAuthority('SCOPE_ADMIN')")
 	@GetMapping
 	public Page<ProductCombinationModel> listCombinationsFromProduct(@PathVariable Long productId,
 			@PageableDefault(size = 5) Pageable pageable) {
@@ -58,6 +60,7 @@ public class ProductCombinationController {
 		return productsModelPage;
 	}
 
+	@PreAuthorize("hasAuthority('SCOPE_ADMIN')")
 	@PutMapping("/{combinedProductId}/active")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> activateCombination(@PathVariable Long productId,
@@ -67,6 +70,7 @@ public class ProductCombinationController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@PreAuthorize("hasAuthority('SCOPE_ADMIN')")
 	@DeleteMapping("/{combinedProductId}/active")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public ResponseEntity<Void> disableCombination(@PathVariable Long productId, @PathVariable Long combinedProductId) {
