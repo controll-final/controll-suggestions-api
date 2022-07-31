@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.collect.ImmutableMap;
 import com.hiringcoders.controll.api.v1.model.ProductCombinationModel;
 import com.hiringcoders.controll.api.v1.model.assembler.ProductCombinationModelAssembler;
+import com.hiringcoders.controll.api.v1.openapi.controller.ProductCombinationControllerOpenApi;
 import com.hiringcoders.controll.core.data.PageableTranslator;
 import com.hiringcoders.controll.domain.repository.ProductCombinationRepository;
 import com.hiringcoders.controll.domain.service.ProductCombinationRegistrationService;
@@ -27,7 +28,7 @@ import com.hiringcoders.controll.domain.service.ProductRegistrationService;
 
 @RestController
 @RequestMapping(path = "/v1/products/{productId}/combinations", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ProductCombinationController {
+public class ProductCombinationController implements ProductCombinationControllerOpenApi {
 
 	@Autowired
 	private ProductCombinationRepository productCombinationRepository;

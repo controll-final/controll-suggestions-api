@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hiringcoders.controll.api.v1.model.ProductModel;
 import com.hiringcoders.controll.api.v1.model.assembler.ProductModelAssembler;
+import com.hiringcoders.controll.api.v1.openapi.controller.ProductControllerOpenApi;
 import com.hiringcoders.controll.domain.filter.ProductFilter;
 import com.hiringcoders.controll.domain.repository.ProductRepository;
 import com.hiringcoders.controll.domain.service.ProductRegistrationService;
 
 @RestController
 @RequestMapping(path = "/v1/products", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ProductController {
+public class ProductController implements ProductControllerOpenApi {
 
 	@Autowired
 	private ProductRepository productRepository;

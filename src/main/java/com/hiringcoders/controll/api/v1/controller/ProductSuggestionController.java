@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hiringcoders.controll.api.v1.model.ProductSummaryModel;
 import com.hiringcoders.controll.api.v1.model.assembler.ProductSummaryModelAssembler;
+import com.hiringcoders.controll.api.v1.openapi.controller.ProductSuggestionControllerOpenApi;
 import com.hiringcoders.controll.domain.model.ProductCombination;
 import com.hiringcoders.controll.domain.repository.ProductCombinationRepository;
 import com.hiringcoders.controll.domain.service.ProductRegistrationService;
 
 @RestController
 @RequestMapping(path = "/v1/products/{productId}/suggestions", produces = MediaType.APPLICATION_JSON_VALUE)
-public class ProductSuggestionController {
+public class ProductSuggestionController implements ProductSuggestionControllerOpenApi {
 	
 	@Autowired
 	private ProductRegistrationService productRegistration;
