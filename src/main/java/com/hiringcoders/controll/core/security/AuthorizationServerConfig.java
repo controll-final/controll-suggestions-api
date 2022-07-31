@@ -33,13 +33,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.secret(passwordEncoder.encode(securityProperties.getAdminSecret()))
 				.authorizedGrantTypes("client_credentials")
 				.scopes("ADMIN")
+				.accessTokenValiditySeconds(24 * 60 * 60) //24 horas
 			
 			.and()
 			
 				.withClient(securityProperties.getStoreId())
 				.secret(passwordEncoder.encode(securityProperties.getStoreSecret()))
 				.authorizedGrantTypes("client_credentials")
-				.scopes("STORE");
+				.scopes("STORE")
+				.accessTokenValiditySeconds(10 * 60); //10 minutos
 	}
 	
 	@Override
