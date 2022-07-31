@@ -13,8 +13,11 @@ import lombok.Setter;
 public class VtexApiProperties {
 	
 	private String vtexAccountName;
+	
 	private String vtexEnvironment;
+	
 	private String vtexAppKey;
+	
 	private String vtexAppToken;
 
 }
