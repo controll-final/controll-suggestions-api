@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.2.RELEASE</version>
+		<version>2.7.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.hiringcoders</groupId>
@@ -15,12 +15,13 @@
 	<name>controll-suggestions-api</name>
 	<description>API de Sugestões de Compra para Crosselling</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<modelmapper.version>3.0.0</modelmapper.version>
 		<guava.version>31.1-jre</guava.version>
 		<spring-security-oauth2.version>2.3.7.RELEASE</spring-security-oauth2.version>
 		<spring-security-jwt.version>1.0.11.RELEASE</spring-security-jwt.version>
 		<oauth2-oidc-sdk.version>6.21.2</oauth2-oidc-sdk.version>
+		<springdoc.version>1.6.9</springdoc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -81,6 +82,11 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-mysql</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
@@ -117,6 +123,18 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-jwt</artifactId>
 			<version>${spring-security-jwt.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-security</artifactId>
+			<version>${springdoc.version}</version>
 		</dependency>
 
 	</dependencies>
