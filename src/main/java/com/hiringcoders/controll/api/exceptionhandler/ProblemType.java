@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum ProblemType {
 
 	INCOMPREHENSIBLE_MESSAGE("Mensagem incompreensível"),
+	ACCESS_DENIED("Acesso Negado"),
 	RESOURCE_NOT_FOUND("Recurso não encontrado"),
 	DOMAIN_ERROR("Violação de regra de negócio"),
 	INVALID_PARAMETERS("Parâmetros inválidos"),
