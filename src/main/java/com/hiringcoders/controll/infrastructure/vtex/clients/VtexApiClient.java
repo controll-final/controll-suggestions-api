@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.hiringcoders.controll.infrastructure.vtex.exception.InvalidParametersVtexApiException;
+import com.hiringcoders.controll.infrastructure.vtex.model.CommitItemFeedOrderVtex;
 import com.hiringcoders.controll.infrastructure.vtex.model.FeedOrderVtex;
 import com.hiringcoders.controll.infrastructure.vtex.model.OrderVtex;
 import com.hiringcoders.controll.infrastructure.vtex.model.ProductVtex;
@@ -73,6 +74,18 @@ public final class VtexApiClient {
 	
 	public List<FeedOrderVtex> getFeedOrder(Long maxlot) {
 		return feedOrderVtexApiClient.getFeedOrder(maxlot);
+	}
+	
+	public void commitItemFeed(String handle) {
+		feedOrderVtexApiClient.commitItemFeed(handle);
+	}
+	
+	public void commitItemFeed(List<String> handles) {
+		feedOrderVtexApiClient.commitItemFeed(handles);
+	}
+	
+	public void commitItemFeed(CommitItemFeedOrderVtex commitItemFeedOrderVtex) {
+		feedOrderVtexApiClient.commitItemFeed(commitItemFeedOrderVtex);
 	}
 
 }

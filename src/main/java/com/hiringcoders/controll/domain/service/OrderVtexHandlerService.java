@@ -11,7 +11,6 @@ import com.hiringcoders.controll.domain.repository.OrderSaleRepository;
 import com.hiringcoders.controll.domain.repository.ProductRepository;
 import com.hiringcoders.controll.infrastructure.vtex.clients.VtexApiClient;
 import com.hiringcoders.controll.infrastructure.vtex.model.OrderItemVtex;
-import com.hiringcoders.controll.infrastructure.vtex.model.OrderVtex;
 import com.hiringcoders.controll.infrastructure.vtex.model.ProductVtex;
 
 @Service
@@ -39,10 +38,12 @@ public class OrderVtexHandlerService {
 	}
 
 	@Transactional
-	public void handleOrder(OrderVtex orderVtex) {
-		var orderSaleOptional = orderSaleRepository.findById(orderVtex.getOrderId());
+	public void handleOrder(String orderId) {
+		var orderSaleOptional = orderSaleRepository.findById(orderId);
 
 		if (!orderSaleOptional.isPresent()) {
+			var orderVtex = vtexApi.getOrderById(orderId);			
+			
 			var orderSale = new OrderSale();
 			orderSale.setId(orderVtex.getOrderId());
 			orderSale.setCreationDate(orderVtex.getCreationDate().toOffsetDateTime());
