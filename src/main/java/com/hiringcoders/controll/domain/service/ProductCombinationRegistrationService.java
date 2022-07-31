@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hiringcoders.controll.domain.exception.DomainException;
 import com.hiringcoders.controll.domain.exception.ProductCombinationNotFoundException;
-import com.hiringcoders.controll.domain.exception.ProductNotFoundException;
 import com.hiringcoders.controll.domain.model.ProductCombination;
 import com.hiringcoders.controll.domain.repository.ProductCombinationRepository;
 
@@ -45,13 +43,7 @@ public class ProductCombinationRegistrationService {
 	
 	private ProductCombination getProductCombination(Long productId, Long combinedProductId) {
 		productRegistration.findProductById(productId);
-		
-		try {
-			productRegistration.findProductById(combinedProductId);
-		} catch (ProductNotFoundException e) {
-			throw new DomainException(e.getMessage(), e);
-		}
-		
+		productRegistration.findProductById(combinedProductId);
 		return findProductCombination(productId, combinedProductId);
 	}
 
