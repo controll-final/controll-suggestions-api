@@ -2,6 +2,8 @@ package com.hiringcoders.controll.api.v1.openapi.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.hiringcoders.controll.api.v1.model.ProductSummaryModel;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,7 +24,7 @@ public interface ProductSuggestionControllerOpenApi {
 					content = @Content(schema = @Schema(ref = "ProblemInfo"))
 			)
 	})
-	List<ProductSummaryModel> listSuggestionsFromProduct(
+	ResponseEntity<List<ProductSummaryModel>> listSuggestionsFromProduct(
 			@Parameter(description = "Id de um Produto", example = "1", required = true) Long productId);
 
 }
