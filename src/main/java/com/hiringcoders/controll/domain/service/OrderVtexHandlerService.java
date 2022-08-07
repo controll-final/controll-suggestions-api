@@ -49,11 +49,11 @@ public class OrderVtexHandlerService {
 			orderSale.setCreationDate(orderVtex.getCreationDate().toOffsetDateTime());
 
 			for (OrderItemVtex orderItemVtex : orderVtex.getItems()) {
-				var sku = handleProduct(orderItemVtex);
+				var product = handleProduct(orderItemVtex);
 
 				var orderSaleItem = new OrderSaleItem();
 				orderSaleItem.setId(orderItemVtex.getUniqueId());
-				orderSaleItem.setProduct(sku);
+				orderSaleItem.setProduct(product);
 				orderSaleItem.setQuantity(orderItemVtex.getQuantity());
 				orderSaleItem.setIsGift(orderItemVtex.getIsGift());
 

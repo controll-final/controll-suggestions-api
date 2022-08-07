@@ -10,15 +10,15 @@ import com.hiringcoders.controll.infrastructure.vtex.clients.VtexApiClient;
 public class VtexApiClientConfig {
 
 	@Autowired
-	private VtexApiProperties properties;
+	private VtexProperties properties;
 	
 	@Bean
 	public VtexApiClient vtexApiClient() {
 		return VtexApiClient.builder()
-				.vtexAccountName(properties.getVtexAccountName())
-				.vtexEnvironment(properties.getVtexEnvironment())
-				.vtexAppKey(properties.getVtexAppKey())
-				.vtexAppToken(properties.getVtexAppToken())
+				.vtexAccountName(properties.getApi().getVtexAccountName())
+				.vtexEnvironment(properties.getApi().getVtexEnvironment())
+				.vtexAppKey(properties.getApi().getVtexAppKey())
+				.vtexAppToken(properties.getApi().getVtexAppToken())
 				.build();
 	}
 
