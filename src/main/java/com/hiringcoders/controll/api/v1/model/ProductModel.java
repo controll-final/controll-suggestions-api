@@ -21,5 +21,8 @@ public class ProductModel {
 	
 	@Schema(example = "22.00")
 	private BigDecimal quantitySold;
+	
+	@Schema(example = "10")
+	private Long totalCombinations;
 
 }

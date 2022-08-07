@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.Formula;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +32,10 @@ public class Product implements Serializable {
 	private Boolean active;
 	
 	@Column(nullable = false)
-	private BigDecimal quantitySold;
+	private BigDecimal quantitySold;	
+	
+	@Formula("(select count(*) from product_combination c where c.product_id = id)")
+	private Long totalCombinations;
 	
 	public Product() {
 		this.quantitySold = BigDecimal.ZERO;
