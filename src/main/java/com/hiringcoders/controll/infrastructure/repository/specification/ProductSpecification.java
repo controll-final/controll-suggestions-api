@@ -23,7 +23,7 @@ public class ProductSpecification {
 				}
 
 				if (StringUtils.hasText(filter.getName())) {
-					predicates.add(builder.like(builder.lower(root.get("name")), filter.getName().toLowerCase() + "%"));
+					predicates.add(builder.like(builder.lower(root.get("name")), "%" + filter.getName().toLowerCase() + "%"));
 				}
 
 				if (filter.getActive() != null) {
